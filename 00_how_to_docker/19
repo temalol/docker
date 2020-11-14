@@ -1,0 +1,9 @@
+## build and run image
+docker run -ditp 3000:3000  -v ~/:/root --name Abathur python:2-slim
+## run pip packet manager
+docker exec Abathur pip install Flask
+## echo hello word webpage
+echo 'from flask import Flask\napp = Flask(__name__)\n@app.route("/")\ndef hello_world():\n\treturn "<h1><font size=\"10\" color=\"red\" face=\"Arial\">Hello, World!<font></h1>"' > ~/app.py
+# run flask development server
+docker exec -e FLASK_APP=/root/app.py Abathur flask run -p 3000 -h 0.0.0.0 
+
