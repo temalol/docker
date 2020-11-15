@@ -1,1 +1,1 @@
-apt update && apt upgrade -y && apt-get install -y build-essential git
+apt update && apt upgrade -y && apt-get install -y build-essential git vim
