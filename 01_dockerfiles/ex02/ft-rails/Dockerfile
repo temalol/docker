@@ -1,17 +1,24 @@
-FROM ruby:2.2.2
+FROM ruby:2.5
 
-# see http://guides.rubyonrails.org/command_line.html#rails-dbconsole
-RUN apt-get update && apt-get install -y mysql-client sqlite3 --no-install-recommends
-RUN gem install rails --version 4.2.4
+MAINTAINER okuzniet <okuzniet@student.unit.ua>
 
-ENV RAILS_VERSION 5.0.1
-ENV RAILS_ENV=development
+# Install rails and create the rails application path.
+RUN					apt-get update -y
+RUN					gem install rails && gem install bundler
+RUN					apt-get -y install build-essential && apt-get -y install libpq-dev && apt-get -y install nodejs && apt-get -y install sqlite3
 
-RUN mkdir -p /opt/app
-WORKDIR /opt/app
+#ENV RAILS_ENV=production
 
-ONBUILD ADD app /opt/app
+# Add the application to the application path.
+ONBUILD COPY app /opt/app
+ONBUILD WORKDIR /opt/app
 
-ONBUILD RUN bundle install
-ONBUILD RUN bundle exec  rake db:setup
+# Default Ruby on Rails port number
+ONBUILD EXPOSE		3000
+
+# Install all of the required gems
+ONBUILD RUN			bundle install --without production
+
+# Runs migrations that have not run yet and runs the db/seed.rb file.
+ONBUILD RUN bundle exec rake db:migrate
 ONBUILD RUN bundle exec rake db:seed
