@@ -12,7 +12,7 @@ RUN wget https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/scrip
     chmod 777 script.deb.sh && ./script.deb.sh && \
     apt-get install -y gitlab-ce && \
     apt-get -y clean
-ARG USER_URL='$MYDOCKER'
+ARG USER_URL="192.168.99.111"
 EXPOSE 22 80 8443
 RUN mkdir -p /etc/gitlab/ssl && \
     chmod 755 /etc/gitlab/ssl && \
