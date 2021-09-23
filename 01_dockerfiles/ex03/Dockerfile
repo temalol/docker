@@ -38,4 +38,4 @@ ENV GITLAB_ROOT_PASSWORD='ljVSTigHLFnHTcR6tIbIyySjzv0Z6pUSstLQrf'
 ENTRYPOINT (/opt/gitlab/embedded/bin/runsvdir-start &)  && /usr/sbin/sshd &&  gitlab-ctl reconfigure && tail -f /dev/null
 
 ##docker build --build-arg USER_URL=localhost --tag gitlab .
-##docker run -it -p 8443:8443 -p 8080:80 -p 22:22 --privileged gitlab
+##docker run -it -p 8443:8443 -p 8080:80 -p 8022:22 --privileged gitlab
